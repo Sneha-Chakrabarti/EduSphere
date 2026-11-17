@@ -380,7 +380,7 @@
 #screen-welcome .wl-res small { display: block; color: #a8b1e3; font-size: 12px; margin-top: 4px; }
 
 /* sections */
-#screen-welcome .wl-sec { max-width: 1120px; margin: 0 auto; padding: 84px 24px 0; }
+#screen-welcome .wl-sec { width: 100%; max-width: 1120px; margin: 0 auto; padding: 84px 24px 0; }
 #screen-welcome .wl-sec h2 { font-family: var(--font-display, sans-serif); font-size: clamp(28px, 3.6vw, 42px); letter-spacing: -.03em; line-height: 1.08; max-width: 18ch; margin-bottom: 40px; }
 #screen-welcome .wl-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px; }
 #screen-welcome .wl-col { padding-top: 22px; position: relative; }
@@ -427,6 +427,54 @@
   #screen-welcome .wl-step::before { top: 0; left: -34px; }
   #screen-welcome .wl-hero { padding-bottom: 64px; }
 }
+
+#screen-welcome .wl-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+#screen-welcome .wl-tab { border: 0; cursor: pointer; font: 600 14px/1 var(--font-ui, sans-serif); padding: 11px 18px; border-radius: 999px; background: #e7e9f7; color: #3a4270; transition: background .25s, color .25s, transform .2s; }
+#screen-welcome .wl-tab:hover { background: #d9dcf2; }
+#screen-welcome .wl-tab.sel { background: var(--tc, #2b3fd6); color: #fff; transform: translateY(-1px); }
+#screen-welcome .wl-q-wrap { position: relative; border-radius: 24px; padding: 30px; background: linear-gradient(135deg, var(--tc-l, #e9ecff), #fff 70%); transition: background .5s; }
+#screen-welcome .wl-q-wrap::before { content: ''; position: absolute; left: 0; top: 28px; bottom: 28px; width: 4px; border-radius: 4px; background: var(--tc, #2b3fd6); transition: background .4s; }
+#screen-welcome .wl-qh { font-size: 12px; font-weight: 600; color: #6a7298; margin-bottom: 10px; }
+#screen-welcome .wl-qt { font-family: var(--font-display, sans-serif); font-size: clamp(19px, 2.3vw, 25px); font-weight: 700; letter-spacing: -.015em; line-height: 1.35; margin-bottom: 18px; max-width: 40ch; }
+#screen-welcome .wl-ch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; max-width: 640px; }
+#screen-welcome .wl-c { text-align: left; border: 0; cursor: pointer; font: 500 15px/1.35 var(--font-ui, sans-serif); padding: 14px 16px; border-radius: 14px; background: #fff; color: #1b2147; box-shadow: inset 0 0 0 1.5px #dfe2f3; transition: box-shadow .25s, background .25s, transform .2s; }
+#screen-welcome .wl-c:hover:not(:disabled) { box-shadow: inset 0 0 0 1.5px var(--tc, #2b3fd6); transform: translateY(-1px); }
+#screen-welcome .wl-c b { margin-right: 8px; color: var(--tc, #2b3fd6); }
+#screen-welcome .wl-c.ok { background: #dff5ec; box-shadow: inset 0 0 0 2px #0c9a6b; }
+#screen-welcome .wl-c.no { background: #ffe6e0; box-shadow: inset 0 0 0 2px #e4502a; }
+#screen-welcome .wl-c:disabled { cursor: default; }
+#screen-welcome .wl-sol { max-width: 640px; overflow: hidden; max-height: 0; opacity: 0; transition: max-height .6s cubic-bezier(.2, .8, .2, 1), opacity .5s, margin .4s; }
+#screen-welcome .wl-sol.open { max-height: 260px; opacity: 1; margin-top: 18px; }
+#screen-welcome .wl-sol p { font-size: 15px; line-height: 1.65; color: #323a63; }
+#screen-welcome .wl-sol strong { color: #0c9a6b; }
+#screen-welcome .wl-show { margin-top: 16px; border: 0; cursor: pointer; font: 600 14px/1 var(--font-ui, sans-serif); padding: 11px 18px; border-radius: 999px; background: var(--tc, #2b3fd6); color: #fff; transition: transform .2s, opacity .3s; }
+#screen-welcome .wl-show:hover { transform: translateY(-2px); }
+#screen-welcome .wl-fadein { animation: wl-fi .5s ease backwards; }
+@keyframes wl-fi { from { opacity: 0; transform: translateY(8px); } }
+@media (max-width: 860px) { #screen-welcome .wl-ch { grid-template-columns: 1fr; } #screen-welcome .wl-q-wrap { padding: 22px 20px 22px 24px; } }
+#screen-welcome .wl-contact { margin-top: 34px; font-size: 15px; color: #b9c1ea; line-height: 1.9; }
+#screen-welcome .wl-contact b { display: block; font-family: var(--font-display, sans-serif); font-size: 18px; color: #fff; margin-bottom: 2px; }
+#screen-welcome .wl-contact a { color: #fff; text-decoration: none; font-weight: 600; border-bottom: 1.5px solid rgba(255, 255, 255, .35); transition: border-color .25s; }
+#screen-welcome .wl-contact a:hover { border-color: #ff8f5a; }
+.contact-line { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 14px; line-height: 1.7; }
+.contact-line a { color: var(--primary); text-decoration: none; font-weight: 600; }
+#screen-welcome .wl-founder { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 56px; align-items: center; }
+#screen-welcome .wl-ph { position: relative; max-width: 380px; }
+#screen-welcome .wl-ph::before { content: ''; position: absolute; inset: 18px -18px -18px 18px; border-radius: 32px; background: linear-gradient(135deg, #2b3fd6, #ff6a3d); opacity: .9; transform: rotate(3deg); }
+#screen-welcome .wl-ph img { position: relative; display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 32px; box-shadow: 0 24px 50px -20px rgba(11, 16, 48, .5); }
+#screen-welcome .wl-fn h2 { margin-bottom: 18px; }
+#screen-welcome .wl-fn p { font-size: 17px; line-height: 1.75; color: #3a4270; max-width: 52ch; margin-bottom: 14px; }
+#screen-welcome .wl-sig { margin-top: 22px; font-family: var(--font-display, sans-serif); font-size: 20px; font-weight: 800; color: #0b1030; }
+#screen-welcome .wl-sig span { display: block; font-family: var(--font-ui, sans-serif); font-size: 14px; font-weight: 500; color: #5b6482; margin-top: 2px; }
+.cp-b { border: 0; cursor: pointer; font: 600 12px/1 var(--font-ui, 'Figtree', sans-serif); padding: 6px 12px; border-radius: 999px; background: rgba(43, 63, 214, .12); color: var(--primary, #2b3fd6); margin-left: 6px; transition: background .2s, color .2s; }
+.cp-b:hover { background: rgba(43, 63, 214, .22); }
+.cp-b.done { background: #0c9a6b; color: #fff; }
+.cp-t { user-select: all; -webkit-user-select: all; font-weight: 600; }
+#screen-welcome .wl-contact .cp-b { background: rgba(255, 255, 255, .14); color: #fff; }
+#screen-welcome .wl-contact .cp-b:hover { background: rgba(255, 255, 255, .26); }
+#screen-welcome .wl-contact .cp-b.done { background: #0c9a6b; }
+#screen-welcome .wl-contact .cp-t { color: #fff; }
+@media (max-width: 860px) { #screen-welcome .wl-founder { grid-template-columns: 1fr; gap: 40px; } #screen-welcome .wl-ph { max-width: 300px; margin: 0 18px 0 0; } }
 @media (prefers-reduced-motion: reduce) {
   #screen-welcome *, #screen-welcome *::before, #screen-welcome *::after { animation: none !important; transition-duration: .01s !important; }
   #screen-welcome .wl-rv { opacity: 1; transform: none; }
@@ -663,6 +711,25 @@
   </div>
 
   <div class="wl-sec">
+    <h2 class="wl-rv">Try a sample question.</h2>
+    <div class="wl-tabs" id="wlTabs" role="tablist"></div>
+    <div class="wl-q-wrap wl-rv" id="wlQ"></div>
+  </div>
+
+  <div class="wl-sec">
+    <div class="wl-founder">
+      <div class="wl-ph wl-rv"><img src="founder.jpg" alt="Sneha Chakrabarti, founder of EduSphere" loading="lazy"></div>
+      <div class="wl-fn wl-rv">
+        <h2>Hi, I'm Sneha.</h2>
+        <p>I passed my twelfth from Tripura. There was no coaching facility in my hometown, and good notes were hard to find.</p>
+        <p>I now study Physics at IISER Kolkata, in the fourth year of the BS-MS programme. I started EduSphere to give students back home the notes I wished I had: affordable, made for their exam and open to anyone with a phone.</p>
+        <p>Take only what you need. If something is missing, write to me.</p>
+        <div class="wl-sig">Sneha Chakrabarti<span>Founder, EduSphere</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wl-sec">
     <h2 class="wl-rv">Four steps to your notes.</h2>
     <div class="wl-flow" id="wlFlow">
       <div class="wl-step"><strong>Create an account</strong><span>Your Student ID is ready straight away.</span></div>
@@ -675,6 +742,7 @@
   <div class="wl-end">
     <h2>Ready when you are.</h2>
     <div class="wl-cta"><button class="wl-btn go" onclick="showScreen('signup')">Create account</button><button class="wl-btn ghost" onclick="showScreen('login')">Log in</button></div>
+    <div class="wl-contact"><b>Questions? Contact the admin</b>Email <span class="cp-t">edusphere.admin@gmail.com</span><button type="button" class="cp-b" onclick="copyText('edusphere.admin@gmail.com',this)">Copy</button><br>Phone <span class="cp-t">9907661474</span><button type="button" class="cp-b" onclick="copyText('9907661474',this)">Copy</button></div>
   </div>
 </div>
 <script>
@@ -725,6 +793,57 @@
   }
   draw();
 
+  var SAMPLES = [
+    { tab: 'TET Paper I', c: '#2b3fd6', l: '#e9ecff', tag: 'Child Development and Pedagogy | 1 mark | Recall | ~20 s',
+      q: 'A child can reason logically about concrete objects but cannot yet handle abstract hypotheses. Which stage of Piaget does this describe?',
+      o: ['Sensorimotor', 'Preoperational', 'Concrete operational', 'Formal operational'], a: 2,
+      s: 'Concrete operational thinking (about 7 to 11 years) allows logical reasoning about real objects, conservation and classification. Abstract and hypothetical reasoning only arrives in the formal operational stage.' },
+    { tab: 'TET Paper II', c: '#0c9a6b', l: '#e1f6ee', tag: 'Mathematics | 1 mark | Application | ~60 s',
+      q: 'The sum of two numbers is 15 and their product is 56. What are the numbers?',
+      o: ['6 and 9', '7 and 8', '5 and 10', '4 and 11'], a: 1,
+      s: 'Let the numbers be x and 15 minus x. Then x(15 - x) = 56, so x squared minus 15x plus 56 = 0, which factorises as (x - 7)(x - 8) = 0. The numbers are 7 and 8.' },
+    { tab: 'STPGT Physics', c: '#7a3fd6', l: '#f0e8ff', tag: 'Mathematical Methods | 1 mark | Recall | ~20 s',
+      q: 'The volume element in spherical polar coordinates is',
+      o: ['r sin θ dr dθ dφ', 'r² dr dθ dφ', 'r² sin θ dr dθ dφ', 'r dr dθ dφ'], a: 2,
+      s: 'The scale factors are 1, r and r sin θ. Their product gives the volume element r² sin θ dr dθ dφ.' },
+    { tab: 'CBSE Science', c: '#e4502a', l: '#ffebe4', tag: 'Class 10 Physics | 1 mark | Application | ~60 s',
+      q: 'An object is placed 30 cm in front of a convex lens of focal length 10 cm. Where is the image formed?',
+      o: ['7.5 cm from the lens', '15 cm from the lens', '30 cm from the lens', '40 cm from the lens'], a: 1,
+      s: 'Take u = -30 cm and f = +10 cm. From 1/v - 1/u = 1/f we get 1/v = 1/10 - 1/30 = 2/30, so v = +15 cm. The image is real and inverted, on the other side of the lens.' },
+    { tab: 'CBSE SST', c: '#b97500', l: '#fff1d6', tag: 'Class 10 History | 1 mark | Recall | ~20 s',
+      q: 'Which movement did Mahatma Gandhi start in 1930 by breaking the salt law at Dandi?',
+      o: ['Non-Cooperation Movement', 'Civil Disobedience Movement', 'Quit India Movement', 'Khilafat Movement'], a: 1,
+      s: 'Gandhi began the Dandi March on 12 March 1930 and broke the salt law on 6 April, which started the Civil Disobedience Movement.' }
+  ];
+  var tabs = document.getElementById('wlTabs'), qbox = document.getElementById('wlQ'), cur = 0;
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function drawQ() {
+    var S = SAMPLES[cur], L = ['A', 'B', 'C', 'D'];
+    qbox.style.setProperty('--tc', S.c); qbox.style.setProperty('--tc-l', S.l);
+    tabs.style.setProperty('--tc', S.c);
+    Array.prototype.forEach.call(tabs.children, function (b, i) { b.classList.toggle('sel', i === cur); b.setAttribute('aria-selected', i === cur ? 'true' : 'false'); b.style.setProperty('--tc', SAMPLES[i].c); });
+    qbox.innerHTML = '<div class="wl-fadein"><div class="wl-qh">' + esc(S.tag) + '</div><div class="wl-qt">' + esc(S.q) + '</div><div class="wl-ch">' +
+      S.o.map(function (t, i) { return '<button type="button" class="wl-c" data-i="' + i + '"><b>' + L[i] + '</b>' + esc(t) + '</button>'; }).join('') +
+      '</div><div class="wl-sol" id="wlSol"><p><strong>Answer: ' + L[S.a] + '.</strong> ' + esc(S.s) + '</p></div><button type="button" class="wl-show" id="wlShow">Show solution</button></div>';
+    function reveal(pick) {
+      var cs = qbox.querySelectorAll('.wl-c');
+      Array.prototype.forEach.call(cs, function (c, i) { c.disabled = true; if (i === S.a) c.classList.add('ok'); else if (i === pick) c.classList.add('no'); });
+      document.getElementById('wlSol').classList.add('open');
+      document.getElementById('wlShow').style.display = 'none';
+    }
+    Array.prototype.forEach.call(qbox.querySelectorAll('.wl-c'), function (c) { c.onclick = function () { reveal(+c.getAttribute('data-i')); }; });
+    document.getElementById('wlShow').onclick = function () { reveal(-1); };
+  }
+  if (tabs && qbox) {
+    SAMPLES.forEach(function (S, i) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'wl-tab'; b.textContent = S.tab; b.setAttribute('role', 'tab');
+      b.onclick = function () { cur = i; drawQ(); };
+      tabs.appendChild(b);
+    });
+    drawQ();
+  }
+
   var rot = document.getElementById('wlRot'), words = rot ? rot.children : [], wi = 0;
   var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (words.length > 1 && !still) {
@@ -759,6 +878,13 @@
 })();
 </script>
 
+<script>
+function copyText(t, btn) {
+  function ok() { if (!btn) return; var o = btn.textContent; btn.textContent = 'Copied'; btn.classList.add('done'); setTimeout(function () { btn.textContent = o; btn.classList.remove('done'); }, 1600); }
+  function fb() { var a = document.createElement('textarea'); a.value = t; a.style.position = 'fixed'; a.style.opacity = '0'; document.body.appendChild(a); a.select(); try { document.execCommand('copy'); ok(); } catch (e) {} document.body.removeChild(a); }
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, fb); else fb();
+}
+</script>
 <div id="screen-login" class="screen">
   <div class="login-box" style="margin:auto;margin-top:60px;margin-bottom:60px;">
     <span class="logo">Edu<span style="color:var(--accent)">Sphere</span></span>
@@ -781,6 +907,7 @@
       <a onclick="showToast('Password reset email sent to registered address.','success')">Forgot password?</a>
       
     </div>
+    <div class="contact-line">Need help? Email <span class="cp-t">edusphere.admin@gmail.com</span><button type="button" class="cp-b" onclick="copyText('edusphere.admin@gmail.com',this)">Copy</button><br>Phone <span class="cp-t">9907661474</span><button type="button" class="cp-b" onclick="copyText('9907661474',this)">Copy</button></div>
     <div class="device-notice">
       <strong>🔒 Device-locked access</strong>
       This account is bound to one registered device. If you are logging in from a new device, your access will be blocked until you complete a device-change request.
@@ -849,6 +976,7 @@
     <div id="signupError" style="display:none;background:#fee2e2;border:1px solid #fca5a5;color:#b91c1c;border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:14px"></div>
     <button class="btn btn-primary" style="width:100%;justify-content:center;padding:10px" onclick="doSignup()">Create account</button>
     <div class="login-links"><a onclick="showScreen('login')">← Back to log in</a></div>
+    <div class="contact-line">Need help? Email <span class="cp-t">edusphere.admin@gmail.com</span><button type="button" class="cp-b" onclick="copyText('edusphere.admin@gmail.com',this)">Copy</button><br>Phone <span class="cp-t">9907661474</span><button type="button" class="cp-b" onclick="copyText('9907661474',this)">Copy</button></div>
     <div class="device-notice"><strong>One account per student</strong>A student phone number or email address can belong to one account only. To reuse them, the admin must first delete the old account. Your account binds to one device on first login.</div>
   </div>
 </div>
