@@ -574,7 +574,7 @@
       <button class="hub-btn" onclick="openCategory('tet')"><span class="hub-icon">📝</span><span class="hub-title">TET I and TET II Study Materials</span><span class="hub-sub">Tripura TET, Paper I and Paper II</span></button>
       <button class="hub-btn" onclick="openCategory('science')"><span class="hub-icon">🔬</span><span class="hub-title">Class 9-12 Science</span><span class="hub-sub">CBSE, classes IX to XII</span></button>
       <button class="hub-btn" onclick="openCategory('sst')"><span class="hub-icon">🌍</span><span class="hub-title">SST Class 9-10</span><span class="hub-sub">CBSE, classes IX and X</span></button>
-      <button class="hub-btn" onclick="openCategory('stpgt')"><span class="hub-icon">🎓</span><span class="hub-title">STPGT Exam 2026</span><span class="hub-sub">Selection Test for Post Graduate Teachers: Physics</span></button>
+      <button class="hub-btn" onclick="openCategory('stpgt')"><span class="hub-icon">🎓</span><span class="hub-title">STPGT</span><span class="hub-sub">Selection Test for Post Graduate Teachers</span></button>
     </div>
   </div>
 </div>
@@ -1405,7 +1405,7 @@
   function money(n) { return '₹' + n.toFixed(2); }
 
   // ── Catalogue categories ──
-  const CAT_TITLES = { tet: 'TET I and TET II Study Materials', science: 'Class 9-12 Science', sst: 'SST Class 9-10', stpgt: 'STPGT Exam 2026' };
+  const CAT_TITLES = { tet: 'TET I and TET II Study Materials', science: 'Class 9-12 Science', sst: 'SST Class 9-10', stpgt: 'STPGT' };
   const CAT_OF = {
     'TET Paper I: Complete Notes': 'tet',
     'TET Paper II: Complete Notes': 'tet',
@@ -1867,7 +1867,10 @@
   function pickSubject(id) { browse.courseId = id; renderBrowse(); }
   function setLevel(i) { browse.level = i; renderBrowse(); }
   function browseBack() {
-    if (browse.cat === 'stpgt') { showScreen('home'); return; }
+    if (browse.cat === 'stpgt') {
+      if (browse.sub) { browse.sub = null; renderBrowse(); } else showScreen('home');
+      return;
+    }
     if (browse.courseId) {
       const multi = subjectsFor(browse.cat, browse.cls).length > 1;
       browse.courseId = null;
@@ -1887,7 +1890,7 @@
 
   function renderBrowse() {
     if (browse.cat === 'tet') { renderTet(); return; }
-    if (browse.cat === 'stpgt') { renderStpgt(); return; }
+    if (browse.cat === 'stpgt') { if (browse.sub) renderStpgt(); else renderStpgtFolder(); return; }
     const el = document.getElementById('browseBody');
     const crumbs = CAT_TITLES[browse.cat] + (browse.cls ? ' / Class ' + browse.cls : '') + (browse.courseId ? ' / ' + COURSES[browse.courseId].name : '');
     let html = `<div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap"><button class="btn btn-secondary btn-sm" onclick="browseBack()">← Back</button><strong style="font-size:15px">${esc(crumbs)}</strong></div>`;
@@ -2000,6 +2003,14 @@
     updatePageNum();
   }
 
+  function pickStpgtSubject(id) { browse.sub = id; renderBrowse(); window.scrollTo(0, 0); }
+  function renderStpgtFolder() {
+    const el = document.getElementById('browseBody');
+    let html = `<div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap"><button class="btn btn-secondary btn-sm" onclick="browseBack()">← Back</button><strong style="font-size:15px">${esc(CAT_TITLES.stpgt)}</strong></div>`;
+    html += `<h2 style="font-size:24px;font-weight:700;margin-bottom:6px">STPGT: choose a subject</h2><p style="color:var(--text-muted);margin-bottom:20px">Selection Test for Post Graduate Teachers (STPGT), Tripura. More subjects will be added here.</p><div class="class-grid">` +
+      Object.keys(STPGT.subjects).map(id => `<button class="class-tile" onclick="pickStpgtSubject('${id}')"><span class="ct-title">${STPGT.subjects[id].name}</span><span class="ct-sub">${STPGT.subjects[id].levels.length} course levels</span></button>`).join('') + '</div>';
+    el.innerHTML = html;
+  }
   function renderStpgt() {
     const el = document.getElementById('browseBody');
     const sid = 'phy', S = STPGT.subjects[sid], lv = browse.level, L = S.levels[lv];
@@ -2107,7 +2118,7 @@
     ).join('')).join('');
     tab.querySelector('tbody').innerHTML += Object.keys(STPGT.subjects).map(id => {
       const S = STPGT.subjects[id];
-      return `<tr><td>STPGT 2026</td><td><strong>${S.name}</strong></td><td>${S.sections.length} sections</td><td>${S.levels.map(l => inr(l.fee)).join(' / ')} (${S.levels.map(l => l.name).join(' / ')})</td><td>n/a</td><td><button class="btn btn-secondary btn-sm" onclick="showToast('Upload PDFs for STPGT ${S.name}.')">Upload PDFs</button> <button class="btn btn-secondary btn-sm" onclick="showToast('Edit fees for STPGT ${S.name}.')">Edit fees</button></td></tr>`;
+      return `<tr><td>STPGT</td><td><strong>${S.name}</strong></td><td>${S.sections.length} sections</td><td>${S.levels.map(l => inr(l.fee)).join(' / ')} (${S.levels.map(l => l.name).join(' / ')})</td><td>n/a</td><td><button class="btn btn-secondary btn-sm" onclick="showToast('Upload PDFs for STPGT ${S.name}.')">Upload PDFs</button> <button class="btn btn-secondary btn-sm" onclick="showToast('Edit fees for STPGT ${S.name}.')">Edit fees</button></td></tr>`;
     }).join('');
     const span = tab.querySelector('span');
     if (span) span.textContent = ids.length + ' courses, ' + ids.reduce((s, id) => s + COURSES[id].n, 0) + ' chapters';
