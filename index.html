@@ -327,6 +327,113 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="theme.css">
+<style id="welcomeCss">
+#screen-welcome { --ink: #0b1030; --ind: #2b3fd6; --verm: #ff6a3d; --mint: #5ed6aa; background: #f6f7fc; color: var(--ink); font-family: var(--font-ui, 'Figtree', system-ui, sans-serif); }
+#screen-welcome * { box-sizing: border-box; }
+#screen-welcome .wl-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; cursor: pointer; font: 600 15px/1 var(--font-ui, 'Figtree', system-ui, sans-serif); padding: 14px 24px; border-radius: 999px; transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s, background .25s, color .25s; }
+#screen-welcome .wl-btn:hover { transform: translateY(-2px); }
+#screen-welcome .wl-btn:focus-visible { outline: 3px solid rgba(255, 255, 255, .6); outline-offset: 3px; }
+#screen-welcome .wl-btn.go { background: linear-gradient(135deg, #ff6a3d, #ff8f5a); color: #fff; box-shadow: 0 10px 30px -8px rgba(255, 106, 61, .7); }
+#screen-welcome .wl-btn.go:hover { box-shadow: 0 16px 36px -8px rgba(255, 106, 61, .85); }
+#screen-welcome .wl-btn.ghost { background: rgba(255, 255, 255, .08); color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .28); }
+#screen-welcome .wl-btn.ghost:hover { background: rgba(255, 255, 255, .16); }
+#screen-welcome .wl-btn { white-space: nowrap; }
+#screen-welcome .wl-btn.sm { padding: 10px 18px; font-size: 14px; }
+@media (max-width: 480px) { #screen-welcome .wl-btn.sm { padding: 9px 13px; font-size: 13px; } #screen-welcome .wl-nav { padding: 18px 16px; } #screen-welcome .wl-in { padding: 0 16px; } }
+
+/* hero */
+#screen-welcome .wl-hero { position: relative; overflow: hidden; background: #0b1030; color: #fff; padding-bottom: 96px; isolation: isolate; }
+#screen-welcome .wl-orb { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .55; z-index: -1; will-change: transform; }
+#screen-welcome .wl-orb.o1 { width: 520px; height: 520px; background: #2b3fd6; left: -120px; top: -140px; animation: wl-drift1 18s ease-in-out infinite alternate; }
+#screen-welcome .wl-orb.o2 { width: 420px; height: 420px; background: #ff6a3d; right: -100px; top: 60px; opacity: .4; animation: wl-drift2 22s ease-in-out infinite alternate; }
+#screen-welcome .wl-orb.o3 { width: 380px; height: 380px; background: #1fb58b; left: 40%; bottom: -200px; opacity: .3; animation: wl-drift1 26s ease-in-out infinite alternate-reverse; }
+@keyframes wl-drift1 { to { transform: translate(90px, 60px) scale(1.12); } }
+@keyframes wl-drift2 { to { transform: translate(-80px, 70px) scale(.92); } }
+#screen-welcome .wl-glow { position: absolute; inset: 0; z-index: -1; background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 30%), rgba(255, 255, 255, .1), transparent 60%); pointer-events: none; }
+#screen-welcome .wl-nav { display: flex; align-items: center; gap: 10px; max-width: 1120px; margin: 0 auto; padding: 22px 24px; }
+#screen-welcome .wl-nav .logo { margin-right: auto; font-size: 22px; color: #fff; }
+#screen-welcome .wl-nav .logo span { color: #ff8f5a; }
+#screen-welcome .wl-in { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+#screen-welcome .wl-split { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 56px; align-items: center; padding-top: 44px; }
+#screen-welcome h1 { font-family: var(--font-display, 'Bricolage Grotesque', sans-serif); font-size: clamp(36px, 4.7vw, 58px); line-height: 1.02; letter-spacing: -.035em; font-weight: 800; color: #fff; }
+#screen-welcome .wl-rot { display: block; height: 1.08em; overflow: hidden; position: relative; }
+#screen-welcome .wl-rot span { display: block; position: absolute; left: 0; top: 0; background: linear-gradient(90deg, #ff8f5a, #ffc857 60%, #8ff0c8); -webkit-background-clip: text; background-clip: text; color: transparent; transform: translateY(105%); opacity: 0; transition: transform .7s cubic-bezier(.2, .8, .2, 1), opacity .7s; }
+#screen-welcome .wl-rot span.on { transform: none; opacity: 1; }
+#screen-welcome .wl-rot span.off { transform: translateY(-105%); opacity: 0; }
+#screen-welcome .wl-lead { font-size: 18px; line-height: 1.65; color: #b9c1ea; max-width: 44ch; margin: 22px 0 30px; }
+#screen-welcome .wl-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+#screen-welcome .wl-sub { margin-top: 18px; font-size: 13px; color: #8d97cc; }
+
+/* configurator */
+#screen-welcome .wl-conf { background: rgba(255, 255, 255, .07); border-radius: 24px; padding: 26px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12), 0 30px 60px -30px rgba(0, 0, 0, .6); }
+#screen-welcome .wl-conf h3 { font-family: var(--font-display, sans-serif); font-size: 19px; color: #fff; margin-bottom: 2px; }
+#screen-welcome .wl-conf > p { color: #a8b1e3; font-size: 13px; margin-bottom: 18px; }
+#screen-welcome .wl-q { font-size: 12px; font-weight: 600; color: #8d97cc; margin: 14px 0 8px; }
+#screen-welcome .wl-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+#screen-welcome .wl-opt { border: 0; cursor: pointer; font: 600 13px/1 var(--font-ui, sans-serif); padding: 10px 14px; border-radius: 999px; background: rgba(255, 255, 255, .09); color: #dfe3fb; transition: background .25s, color .25s, transform .2s; }
+#screen-welcome .wl-opt:hover { background: rgba(255, 255, 255, .17); }
+#screen-welcome .wl-opt.sel { background: #fff; color: #0b1030; transform: translateY(-1px); }
+#screen-welcome .wl-opt:focus-visible { outline: 2px solid #8ff0c8; outline-offset: 2px; }
+#screen-welcome .wl-meter { margin-top: 22px; height: 8px; border-radius: 999px; background: rgba(255, 255, 255, .12); overflow: hidden; }
+#screen-welcome .wl-meter i { display: block; height: 100%; width: var(--f, 30%); border-radius: 999px; background: linear-gradient(90deg, #5ed6aa, #ffc857, #ff6a3d); transition: width .7s cubic-bezier(.2, .8, .2, 1); }
+#screen-welcome .wl-res { margin-top: 14px; font-size: 15px; line-height: 1.5; color: #fff; min-height: 46px; transition: opacity .25s; }
+#screen-welcome .wl-res small { display: block; color: #a8b1e3; font-size: 12px; margin-top: 4px; }
+
+/* sections */
+#screen-welcome .wl-sec { max-width: 1120px; margin: 0 auto; padding: 84px 24px 0; }
+#screen-welcome .wl-sec h2 { font-family: var(--font-display, sans-serif); font-size: clamp(28px, 3.6vw, 42px); letter-spacing: -.03em; line-height: 1.08; max-width: 18ch; margin-bottom: 40px; }
+#screen-welcome .wl-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px; }
+#screen-welcome .wl-col { padding-top: 22px; position: relative; }
+#screen-welcome .wl-col::before { content: ''; position: absolute; top: 0; left: 0; height: 3px; width: 56px; border-radius: 3px; background: var(--c); transition: width .9s cubic-bezier(.2, .8, .2, 1) .15s; }
+#screen-welcome .wl-col.in::before { width: 100%; }
+#screen-welcome .wl-col h3 { font-family: var(--font-display, sans-serif); font-size: 24px; letter-spacing: -.02em; margin-bottom: 10px; color: var(--c); }
+#screen-welcome .wl-col p { font-size: 16px; line-height: 1.65; color: #4a5278; }
+#screen-welcome .wl-col:nth-child(1) { --c: #0c9a6b; }
+#screen-welcome .wl-col:nth-child(2) { --c: #2b3fd6; }
+#screen-welcome .wl-col:nth-child(3) { --c: #e4502a; }
+#screen-welcome .wl-study { display: flex; flex-wrap: wrap; gap: 12px; }
+#screen-welcome .wl-study span { font-family: var(--font-display, sans-serif); font-size: clamp(20px, 2.6vw, 30px); font-weight: 800; letter-spacing: -.02em; padding: 8px 20px; border-radius: 999px; color: #fff; background: var(--c); transition: transform .3s cubic-bezier(.2, .8, .2, 1); }
+#screen-welcome .wl-study span:hover { transform: translateY(-4px) rotate(-1deg); }
+#screen-welcome .wl-study span:nth-child(1) { --c: #2b3fd6; }
+#screen-welcome .wl-study span:nth-child(2) { --c: #0c9a6b; }
+#screen-welcome .wl-study span:nth-child(3) { --c: #e4502a; }
+#screen-welcome .wl-study span:nth-child(4) { --c: #b97500; }
+#screen-welcome .wl-flow { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; padding-top: 34px; }
+#screen-welcome .wl-flow::before { content: ''; position: absolute; top: 11px; left: 0; right: 0; height: 2px; background: #dde1f2; }
+#screen-welcome .wl-flow::after { content: ''; position: absolute; top: 11px; left: 0; height: 2px; width: 0; background: linear-gradient(90deg, #2b3fd6, #0c9a6b, #ffc857, #e4502a); transition: width 1.6s cubic-bezier(.3, .7, .2, 1) .2s; }
+#screen-welcome .wl-flow.in::after { width: 100%; }
+#screen-welcome .wl-step { position: relative; }
+#screen-welcome .wl-step::before { content: ''; position: absolute; top: -34px; left: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 6px #f6f7fc; }
+#screen-welcome .wl-step strong { display: block; font-family: var(--font-display, sans-serif); font-size: 19px; letter-spacing: -.01em; margin-bottom: 6px; }
+#screen-welcome .wl-step span { font-size: 15px; line-height: 1.6; color: #4a5278; }
+#screen-welcome .wl-step:nth-child(1) { --c: #2b3fd6; }
+#screen-welcome .wl-step:nth-child(2) { --c: #0c9a6b; }
+#screen-welcome .wl-step:nth-child(3) { --c: #e0a100; }
+#screen-welcome .wl-step:nth-child(4) { --c: #e4502a; }
+#screen-welcome .wl-end { position: relative; overflow: hidden; margin-top: 96px; background: #0b1030; color: #fff; text-align: center; padding: 76px 24px; isolation: isolate; }
+#screen-welcome .wl-end::before { content: ''; position: absolute; width: 640px; height: 640px; left: 50%; top: 50%; margin: -320px 0 0 -320px; z-index: -1; border-radius: 50%; background: conic-gradient(from 0deg, #2b3fd6, #ff6a3d, #1fb58b, #2b3fd6); filter: blur(90px); opacity: .45; animation: wl-spin 30s linear infinite; }
+@keyframes wl-spin { to { transform: rotate(360deg); } }
+#screen-welcome .wl-end h2 { font-family: var(--font-display, sans-serif); font-size: clamp(30px, 4vw, 48px); letter-spacing: -.03em; margin-bottom: 26px; color: #fff; }
+#screen-welcome .wl-end .wl-cta { justify-content: center; }
+#screen-welcome .wl-rv { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s cubic-bezier(.2, .8, .2, 1); }
+#screen-welcome .wl-rv.in { opacity: 1; transform: none; }
+@media (max-width: 860px) {
+  #screen-welcome .wl-split { grid-template-columns: 1fr; gap: 36px; padding-top: 24px; }
+  #screen-welcome .wl-cols { grid-template-columns: 1fr; gap: 34px; }
+  #screen-welcome .wl-flow { grid-template-columns: 1fr; gap: 30px; padding: 0 0 0 34px; }
+  #screen-welcome .wl-flow::before, #screen-welcome .wl-flow::after { top: 0; bottom: 0; left: 11px; right: auto; width: 2px; height: auto; }
+  #screen-welcome .wl-flow::after { height: 0; transition-property: height; }
+  #screen-welcome .wl-flow.in::after { width: 2px; height: 100%; }
+  #screen-welcome .wl-step::before { top: 0; left: -34px; }
+  #screen-welcome .wl-hero { padding-bottom: 64px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #screen-welcome *, #screen-welcome *::before, #screen-welcome *::after { animation: none !important; transition-duration: .01s !important; }
+  #screen-welcome .wl-rv { opacity: 1; transform: none; }
+  #screen-welcome .wl-rot span { transform: none; opacity: 1; position: static; display: none; }
+  #screen-welcome .wl-rot span:first-child { display: block; }
+}
+</style>
 </head>
 <body>
 
@@ -506,7 +613,153 @@
 <!-- ═══════════════════════════════════════════
      SCREEN: LOGIN
 ═══════════════════════════════════════════ -->
-<div id="screen-login" class="screen active">
+<div id="screen-welcome" class="screen active">
+  <div class="wl-hero" id="wlHero">
+    <div class="wl-orb o1"></div><div class="wl-orb o2"></div><div class="wl-orb o3"></div><div class="wl-glow"></div>
+    <div class="wl-nav">
+      <span class="logo">Edu<span>Sphere</span></span>
+      <button class="wl-btn ghost sm" onclick="showScreen('login')">Log in</button>
+      <button class="wl-btn go sm" onclick="showScreen('signup')">Create account</button>
+    </div>
+    <div class="wl-in">
+      <div class="wl-split">
+        <div>
+          <h1>Notes that fit your<span class="wl-rot" id="wlRot" aria-live="off"><span class="on">exam.</span><span>budget.</span><span>pace.</span><span>needs.</span></span></h1>
+          <p class="wl-lead">Study notes sold in parts. Take one subject, one chapter or the full course, and pay only for what you take.</p>
+          <div class="wl-cta">
+            <button class="wl-btn go" onclick="showScreen('signup')">Create account</button>
+            <button class="wl-btn ghost" onclick="showScreen('login')">I have an account</button>
+          </div>
+          <p class="wl-sub">Opens in any browser on your phone or laptop. Nothing to install.</p>
+        </div>
+        <div class="wl-conf" id="wlConf">
+          <h3>Build your pick</h3>
+          <p>Try it. This is how buying works here.</p>
+          <div class="wl-q">Exam</div>
+          <div class="wl-opts" data-k="exam"></div>
+          <div class="wl-q">How much</div>
+          <div class="wl-opts" data-k="scope"></div>
+          <div class="wl-q">How deep</div>
+          <div class="wl-opts" data-k="level"></div>
+          <div class="wl-meter"><i id="wlMeter"></i></div>
+          <div class="wl-res" id="wlRes"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wl-sec">
+    <h2 class="wl-rv">Pay for the part you need.</h2>
+    <div class="wl-cols">
+      <div class="wl-col wl-rv"><h3>Affordable</h3><p>Good notes should not cost a fortune. You never pay for a whole bundle when you only need a part of it.</p></div>
+      <div class="wl-col wl-rv"><h3>Made to your needs</h3><p>Weak in one subject? Take just that one. Preparing for everything? Take the full course. Every course comes in several depths to match your time and budget.</p></div>
+      <div class="wl-col wl-rv"><h3>Easy to access</h3><p>Sign in and your notes open right in the browser. Pay by UPI and they unlock as soon as the payment is approved.</p></div>
+    </div>
+  </div>
+
+  <div class="wl-sec">
+    <h2 class="wl-rv">What you can study.</h2>
+    <div class="wl-study wl-rv"><span>Tripura TET I and II</span><span>STPGT Physics</span><span>CBSE Class 9-12 Science</span><span>CBSE SST Class 9-10</span></div>
+  </div>
+
+  <div class="wl-sec">
+    <h2 class="wl-rv">Four steps to your notes.</h2>
+    <div class="wl-flow" id="wlFlow">
+      <div class="wl-step"><strong>Create an account</strong><span>Your Student ID is ready straight away.</span></div>
+      <div class="wl-step"><strong>Pick your notes</strong><span>Exam, then subject or chapter, then depth.</span></div>
+      <div class="wl-step"><strong>Pay by UPI</strong><span>Scan the QR code and enter your reference.</span></div>
+      <div class="wl-step"><strong>Start reading</strong><span>Notes unlock once the payment is approved.</span></div>
+    </div>
+  </div>
+
+  <div class="wl-end">
+    <h2>Ready when you are.</h2>
+    <div class="wl-cta"><button class="wl-btn go" onclick="showScreen('signup')">Create account</button><button class="wl-btn ghost" onclick="showScreen('login')">Log in</button></div>
+  </div>
+</div>
+<script>
+(function () {
+  var EX = {
+    tet: { name: 'Tripura TET I and II', scopes: ['One subject', 'Combined subjects'], levels: ['Short', 'Intermediate', 'Expanded', 'Full'] },
+    stpgt: { name: 'STPGT Physics', scopes: ['Full Physics'], levels: ['Short', 'Intermediate', 'Expanded', 'Full', 'Advanced'] },
+    sci: { name: 'CBSE Class 9-12 Science', scopes: ['One chapter', 'Whole subject'], levels: ['Short', 'Intermediate', 'Expanded', 'Full'] },
+    sst: { name: 'CBSE SST Class 9-10', scopes: ['One chapter', 'Whole subject'], levels: ['Short', 'Intermediate', 'Expanded', 'Full'] }
+  };
+  var st = { exam: 'tet', scope: 0, level: 1 };
+  var root = document.getElementById('wlConf');
+  if (!root) return;
+  function opts(k, list, sel) {
+    var box = root.querySelector('[data-k="' + k + '"]');
+    box.innerHTML = '';
+    list.forEach(function (label, i) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'wl-opt' + (i === sel ? ' sel' : ''); b.textContent = label;
+      b.setAttribute('aria-pressed', i === sel ? 'true' : 'false');
+      b.onclick = function () {
+        if (k === 'scope') st.scope = i; else st.level = i;
+        draw();
+      };
+      box.appendChild(b);
+    });
+  }
+  function draw() {
+    var e = EX[st.exam];
+    if (st.scope >= e.scopes.length) st.scope = 0;
+    if (st.level >= e.levels.length) st.level = e.levels.length - 1;
+    var keys = Object.keys(EX), box = root.querySelector('[data-k="exam"]');
+    box.innerHTML = '';
+    keys.forEach(function (k) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'wl-opt' + (k === st.exam ? ' sel' : ''); b.textContent = EX[k].name;
+      b.setAttribute('aria-pressed', k === st.exam ? 'true' : 'false');
+      b.onclick = function () { st.exam = k; st.scope = 0; st.level = Math.min(1, EX[k].levels.length - 1); draw(); };
+      box.appendChild(b);
+    });
+    opts('scope', e.scopes, st.scope);
+    opts('level', e.levels, st.level);
+    var f = 0.12 + 0.88 * (0.55 * (e.scopes.length > 1 ? st.scope / (e.scopes.length - 1) : 1) + 0.45 * (st.level / (e.levels.length - 1)));
+    document.getElementById('wlMeter').style.setProperty('--f', Math.round(Math.min(1, f) * 100) + '%');
+    var line = e.scopes[st.scope] + ', ' + e.levels[st.level] + ' depth';
+    var sub = st.scope === 0 && e.scopes.length > 1 ? 'Just this part. Nothing extra to pay for.' : e.scopes.length > 1 ? 'Everything in that subject, in one go.' : 'The full syllabus, at the depth you pick.';
+    document.getElementById('wlRes').innerHTML = line + '<small>' + sub + ' Prices show once you sign in.</small>';
+  }
+  draw();
+
+  var rot = document.getElementById('wlRot'), words = rot ? rot.children : [], wi = 0;
+  var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (words.length > 1 && !still) {
+    setInterval(function () {
+      var cur = words[wi]; cur.className = 'off';
+      wi = (wi + 1) % words.length;
+      var nx = words[wi]; nx.className = '';
+      void nx.offsetWidth; nx.className = 'on';
+      setTimeout(function () { cur.className = ''; }, 800);
+    }, 2400);
+  }
+
+  var hero = document.getElementById('wlHero');
+  if (hero && !still) {
+    hero.addEventListener('pointermove', function (ev) {
+      var r = hero.getBoundingClientRect();
+      hero.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+      hero.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+    });
+  }
+
+  var scr = document.getElementById('screen-welcome');
+  var targets = scr.querySelectorAll('.wl-rv, .wl-col, #wlFlow');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) {
+      en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } });
+    }, { threshold: .25 });
+    targets.forEach(function (t) { io.observe(t); });
+  } else {
+    targets.forEach(function (t) { t.classList.add('in'); });
+  }
+})();
+</script>
+
+<div id="screen-login" class="screen">
   <div class="login-box" style="margin:auto;margin-top:60px;margin-bottom:60px;">
     <span class="logo">Edu<span style="color:var(--accent)">Sphere</span></span>
     <p class="login-tagline">EduSphere — your secure study materials portal</p>
