@@ -623,7 +623,7 @@
 </style>
 <style id="previewCss">
 body.preview-mode [onclick*="toggleCart"], body.preview-mode .cart-count, body.preview-mode #cartDrawer { display: none !important; }
-body.preview-mode .lv-price, body.preview-mode .chapter-row > div[style*="margin-right:6px"] { display: none !important; }
+body.preview-mode .cb-price, body.preview-mode .lv-price, body.preview-mode .chapter-row > div[style*="margin-right:6px"] { display: none !important; }
 body.preview-mode .badge-green { display: none !important; }
 body.preview-mode #screen-dashboard .stat-card.green { display: none !important; }
 body.preview-mode #screen-dashboard .sidebar-nav a[onclick*="purchases"] { display: none !important; }
@@ -721,8 +721,7 @@ body.preview-mode { padding-bottom: 64px; }
     <div class="logo">Edu<span>Sphere</span></div>
     <nav style="display:flex;gap:4px;margin-left:28px;">
       <button class="btn btn-secondary btn-sm" style="border:none;color:var(--text-muted)" onclick="openCategory('tet')">TET I &amp; II</button>
-      <button class="btn btn-secondary btn-sm" style="border:none;color:var(--text-muted)" onclick="openCategory('science')">CBSE Science 9-12</button>
-      <button class="btn btn-secondary btn-sm" style="border:none;color:var(--text-muted)" onclick="openCategory('sst')">CBSE SST 9-10</button>
+      <button class="btn btn-secondary btn-sm" style="border:none;color:var(--text-muted)" onclick="openCategory('cbse')">CBSE 9-12</button>
       
     </nav>
     <div class="topbar-actions">
@@ -932,7 +931,7 @@ body.preview-mode { padding-bottom: 64px; }
 
   <div class="wl-sec">
     <h2 class="wl-rv">What you can study.</h2>
-    <div class="wl-study wl-rv"><span>Tripura TET I and II</span><span>STPGT Physics</span><span>STGT</span><span>CBSE Class 9-12 Science</span><span>CBSE SST Class 9-10</span></div>
+    <div class="wl-study wl-rv"><span>Tripura TET I and II</span><span>STPGT Physics</span><span>STGT</span><span>CBSE Class 9-12</span></div>
   </div>
 
   <div class="wl-sec">
@@ -975,8 +974,8 @@ body.preview-mode { padding-bottom: 64px; }
   var EX = {
     tet: { name: 'Tripura TET I and II', scopes: ['One subject', 'Combined subjects'], levels: ['Short', 'Intermediate', 'Expanded', 'Full'] },
     stpgt: { name: 'STPGT Physics', scopes: ['Full Physics'], levels: ['Short', 'Intermediate', 'Expanded', 'Full', 'Advanced'] },
-    sci: { name: 'CBSE Class 9-12 Science', scopes: ['One chapter', 'Whole subject'], levels: ['Short', 'Intermediate', 'Expanded', 'Full'] },
-    sst: { name: 'CBSE SST Class 9-10', scopes: ['One chapter', 'Whole subject'], levels: ['Short', 'Intermediate', 'Expanded', 'Full'] }
+    sci: { name: 'CBSE Class 9-12 Science', scopes: ['One chapter', 'Whole subject'], levels: ['Short', 'Medium', 'Full'] },
+    sst: { name: 'CBSE SST Class 9-10', scopes: ['One chapter', 'Whole subject'], levels: ['Short', 'Medium', 'Full'] }
   };
   var st = { exam: 'tet', scope: 0, level: 1 };
   var root = document.getElementById('wlConf');
@@ -1223,8 +1222,7 @@ function copyText(t, btn) {
     </div>
     <div class="hub-grid">
       <button class="hub-btn" onclick="openCategory('tet')"><span class="hub-icon">📝</span><span class="hub-title">TET I and TET II Study Materials</span><span class="hub-sub">Tripura TET, Paper I and Paper II</span></button>
-      <button class="hub-btn" onclick="openCategory('science')"><span class="hub-icon">🔬</span><span class="hub-title">CBSE Class 9-12 Science</span><span class="hub-sub">Classes IX to XII</span></button>
-      <button class="hub-btn" onclick="openCategory('sst')"><span class="hub-icon">🌍</span><span class="hub-title">CBSE SST Class 9-10</span><span class="hub-sub">Classes IX and X</span></button>
+      <button class="hub-btn" onclick="openCategory('cbse')"><span class="hub-icon">📚</span><span class="hub-title">CBSE Class 9-12</span><span class="hub-sub">Science and Social Science, Classes IX to XII</span></button>
       <button class="hub-btn" onclick="openCategory('stpgt')"><span class="hub-icon">🎓</span><span class="hub-title">STPGT</span><span class="hub-sub">Selection Test for Post Graduate Teachers</span></button>
       <button class="hub-btn" onclick="openCategory('stgt')"><span class="hub-icon">🎓</span><span class="hub-title">STGT</span><span class="hub-sub">Selection Test for Graduate Teachers</span></button>
       <button class="hub-btn" onclick="openJunior(false)"><span class="hub-icon">🦜</span><span class="hub-title">Junior Classes 1 to 5</span><span class="hub-sub">Play and Learn games and quizzes, with a parents overview</span></button>
@@ -2196,7 +2194,7 @@ function copyText(t, btn) {
   function money(n) { return '₹' + n.toFixed(2); }
 
   // ── Catalogue categories ──
-  const CAT_TITLES = { tet: 'TET I and TET II Study Materials', science: 'CBSE Class 9-12 Science', sst: 'CBSE SST Class 9-10', stpgt: 'STPGT', stgt: 'STGT' };
+  const CAT_TITLES = { cbse: 'CBSE', tet: 'TET I and TET II Study Materials', science: 'CBSE Class 9-12 Science', sst: 'CBSE SST Class 9-10', stpgt: 'STPGT', stgt: 'STGT' };
   const CAT_OF = {
     'TET Paper I: Complete Notes': 'tet',
     'TET Paper II: Complete Notes': 'tet',
@@ -2374,19 +2372,21 @@ function copyText(t, btn) {
   renderAdminStudents();
 
   // ── CBSE course catalogue (from the fee and course pattern documents) ──
-  const LEVELS = ['Short', 'Medium', 'Expanded'];
+  const LEVELS = ['Short', 'Medium', 'Full'];
   const COURSES = {
-    '12-phy':  { cls: 'XII', name: 'Physics',        cat: 'science', n: 14, per: [500, 600, 700], whole: [6000, 7000, 8000] },
-    '12-chem': { cls: 'XII', name: 'Chemistry',      cat: 'science', n: 10, per: [500, 600, 700], whole: [4000, 5000, 6000] },
-    '12-bio':  { cls: 'XII', name: 'Biology',        cat: 'science', n: 13, per: [400, 500, 600], whole: [4500, 5500, 6500] },
-    '11-phy':  { cls: 'XI',  name: 'Physics',        cat: 'science', n: 14, per: [400, 500, 600], whole: [4500, 5500, 6500] },
+    '12-phy':  { cls: 'XII', name: 'Physics',        cat: 'science', n: 14, per: [500, 600, 700], whole: [5000, 6500, 7999] },
+    '12-chem': { cls: 'XII', name: 'Chemistry',      cat: 'science', n: 12, per: [500, 600, 700], whole: [4000, 5000, 5999] },
+    '12-bio':  { cls: 'XII', name: 'Biology',        cat: 'science', n: 13, per: [500, 600, 700], whole: [5000, 6000, 6999] },
+    '12-math': { cls: 'XII', name: 'Math',           cat: 'science', n: 13, per: [500, 600, 700], whole: [6000, 7500, 8500] },
+    '11-phy':  { cls: 'XI',  name: 'Physics',        cat: 'science', n: 15, per: [400, 500, 600], whole: [4500, 5500, 6500] },
     '11-chem': { cls: 'XI',  name: 'Chemistry',      cat: 'science', n: 9,  per: [400, 500, 600], whole: [3000, 4000, 5000] },
-    '11-bio':  { cls: 'XI',  name: 'Biology',        cat: 'science', n: 19, per: [300, 400, 500], whole: [4500, 6000, 7500] },
+    '11-bio':  { cls: 'XI',  name: 'Biology',        cat: 'science', n: 22, per: [300, 400, 500], whole: [4500, 6000, 7500] },
     '10-sci':  { cls: 'X',   name: 'Science',        cat: 'science', n: 13, per: [400, 500, 600], whole: [4500, 5500, 6500] },
     '9-sci':   { cls: 'IX',  name: 'Science',        cat: 'science', n: 13, per: [350, 400, 450], whole: [4000, 4500, 5000] },
-    '10-sst':  { cls: 'X',   name: 'Social Science', cat: 'sst',     n: 22, per: [300, 400, 450], whole: [5500, 7500, 8500] },
-    '9-sst':   { cls: 'IX',  name: 'Social Science', cat: 'sst',     n: 16, per: [300, 350, 400], whole: [4000, 4500, 5000] }
+    '10-sst':  { cls: 'X',   name: 'Social Science', cat: 'sst',     n: 28, per: [300, 400, 450], whole: [5500, 7500, 8500] },
+    '9-sst':   { cls: 'IX',  name: 'Social Science', cat: 'sst',     n: 24, per: [300, 350, 400], whole: [4000, 4500, 5000] }
   };
+
   const COMP_DESC = { MCQ: 'multiple choice questions', VSA: 'very short answer questions', SA: 'short answer questions', CBQ: 'case-based questions', LA: 'long answer questions', Notes: 'chapter-wise comprehensive notes' };
 
   // Tripura TET fee structure (slab-wise)
@@ -2472,7 +2472,7 @@ function copyText(t, btn) {
     { utr: '431771220318', sid: 'EV-2024-0471', label: 'Class XII Chemistry (Short), Chapters 1 and 2', items: [{ courseId: '12-chem', level: 0, ch: 1 }, { courseId: '12-chem', level: 0, ch: 2 }], total: 1000, date: '20 Oct 2026', status: 'Paid' },
     { utr: '431882910045', sid: 'EV-2024-0471', label: 'Class XII Physics (Medium), Chapters 1 to 3', items: [{ courseId: '12-phy', level: 1, ch: 1 }, { courseId: '12-phy', level: 1, ch: 2 }, { courseId: '12-phy', level: 1, ch: 3 }], total: 1800, date: '02 Nov 2026', status: 'Paid' },
     { utr: '431660457712', sid: 'EV-2024-0203', label: 'Class X Science (Short), Whole course', items: [{ courseId: '10-sci', level: 0, ch: 'all' }], total: 4500, date: '05 Nov 2026', status: 'Paid' },
-    { utr: '431120998801', sid: 'EV-2024-0088', label: 'Class X Social Science (Expanded), Chapters 1 to 4', items: [{ courseId: '10-sst', level: 2, ch: 1 }, { courseId: '10-sst', level: 2, ch: 2 }, { courseId: '10-sst', level: 2, ch: 3 }, { courseId: '10-sst', level: 2, ch: 4 }], total: 1800, date: '03 Nov 2026', status: 'Rejected' },
+    { utr: '431120998801', sid: 'EV-2024-0088', label: 'Class X Social Science (Full), Chapters 1 to 4', items: [{ courseId: '10-sst', level: 2, ch: 1 }, { courseId: '10-sst', level: 2, ch: 2 }, { courseId: '10-sst', level: 2, ch: 3 }, { courseId: '10-sst', level: 2, ch: 4 }], total: 1800, date: '03 Nov 2026', status: 'Rejected' },
     { utr: '431990127654', sid: 'EV-2024-0310', label: 'Class IX Social Science (Medium), Whole course', items: [{ courseId: '9-sst', level: 1, ch: 'all' }], total: 4500, date: '06 Nov 2026', status: 'Awaiting verification' }
   ];
 
@@ -2914,7 +2914,6 @@ function copyText(t, btn) {
     // STGT is defined by a later script, so this is skipped on the very first call at page load.
     if (typeof STGT !== 'undefined') Object.keys(STGT.groups).forEach(g => {
       const G = STGT.groups[g];
-      if (G.soon) { S['STGT'].rows.push([`<strong>${G.name}</strong>`, 'All courses', '-', '<span class="badge badge-gray">Coming soon</span>', '-']); return; }
       const cnt = key => [0, 1, 2, 3].filter(i => STGT_PDF[key + '/' + i]).length + ' of 4';
       S['STGT'].rows.push([G.name, '<strong>Combo Course</strong>', STGT.comboLevels.map((l, i) => l + ' ' + inr(G.combo[i])).join(', '), cnt(g + '/combo'), up('STGT ' + G.name + ' Combo')]);
       G.subjects.forEach(s => S['STGT'].rows.push([G.name, '<strong>' + s[1] + '</strong>', STGT.subjLevels.map((l, i) => l + ' ' + inr(G.subj[i])).join(', '), cnt(g + '/' + s[0]), up('STGT ' + s[1])]));
@@ -2922,7 +2921,7 @@ function copyText(t, btn) {
     ['I', 'II'].forEach(p => {
       S['TET ' + p] = { head: ['Subject or combo', 'Fees (Short / Intermediate / Expanded / Full)', 'Actions'], rows: TET[p].subjects.concat(TET[p].combos.map(c => [c.name, c.fees])).map(s => [`<strong>${esc(s[0])}</strong>`, s[1].map(inr).join(' / '), up('Tripura TET ' + p)]) };
     });
-    S['CBSE'] = { head: ['Class', 'Subject', 'Chapters', 'Per chapter (S / M / E)', 'Whole course (S / M / E)', 'Actions'], rows: Object.keys(COURSES).map(id => { const c = COURSES[id]; return ['Class ' + c.cls, `<strong>${c.name}</strong>`, c.n, c.per.map(inr).join(' / '), c.whole.map(inr).join(' / '), up('Class ' + c.cls + ' ' + c.name)]; }) };
+    S['CBSE'] = { head: ['Class', 'Subject', 'Chapters', 'Per chapter (S / M / F)', 'Whole course (S / M / F)', 'Actions'], rows: Object.keys(COURSES).map(id => { const c = COURSES[id]; return ['Class ' + c.cls, `<strong>${c.name}</strong>`, c.n, c.per.map(inr).join(' / '), c.whole.map(inr).join(' / '), up('Class ' + c.cls + ' ' + c.name)]; }) };
     const names = Object.keys(S);
     if (!S[adminMatExam]) adminMatExam = names[0];
     const cur = S[adminMatExam];
@@ -3625,12 +3624,14 @@ function copyText(t, btn) {
     subjLevels: ['Short', 'Intermediate', 'Expanded', 'Full'],
     groups: {
       bio: { name: 'Biological Sciences', soon: false, subjects: [['zoology', 'Zoology'], ['botany', 'Botany'], ['physiology', 'Physiology']], combo: [1199, 2399, 3599, 4499], subj: [399, 799, 1199, 1499] },
-      pure: { name: 'Pure Sciences', soon: true, subjects: [], combo: [], subj: [] },
+      pure: { name: 'Pure Sciences', soon: true, subjects: [['physics', 'Physics'], ['chemistry', 'Chemistry'], ['math', 'Math']], combo: [1199, 2399, 3599, 4499], subj: [399, 799, 1199, 1499] },
       soc: { name: 'Social Sciences', soon: false, subjects: [['political-science', 'Political Science'], ['history', 'History'], ['geography', 'Geography'], ['economics', 'Economics']], combo: [1599, 3199, 4799, 5999], subj: [399, 799, 1199, 1499] }
     }
   };
   // Key 'bio/zoology/2' -> { pages, mcq }. Filled from the materials table on the live site. Sample entries below are for the demo only.
   const STGT_PDF = { 'bio/zoology/0': { pages: 90, mcq: 400 }, 'bio/zoology/1': { pages: 180, mcq: 800 }, 'bio/combo/0': { pages: 240, mcq: 1200 } };
+  // A group marked soon stays closed to students until its first PDF is uploaded. Admin always sees its upload rows.
+  function stgtSoon(g) { return !!STGT.groups[g].soon && !Object.keys(STGT_PDF).some(k => k.indexOf(g + '/') === 0); }
   function stgtSubjName(grp, sid) { const s = STGT.groups[grp].subjects.filter(x => x[0] === sid)[0]; return s ? s[1] : sid; }
   function stgtName(key, lvl) {
     const p = key.split('/'), G = STGT.groups[p[0]];
@@ -3649,7 +3650,7 @@ function copyText(t, btn) {
     totalPages = (info && info.pages) || 1;
     updatePageNum();
   }
-  function pickStgtGrp(g) { if (STGT.groups[g].soon) return; browse.grp = g; browse.div = null; browse.sid = null; browse.level = 0; renderBrowse(); window.scrollTo(0, 0); }
+  function pickStgtGrp(g) { if (stgtSoon(g)) return; browse.grp = g; browse.div = null; browse.sid = null; browse.level = 0; renderBrowse(); window.scrollTo(0, 0); }
   function pickStgtDiv(d) {
     browse.div = d; browse.level = 0;
     browse.sid = d === 'subj' ? STGT.groups[browse.grp].subjects[0][0] : null;
@@ -3668,12 +3669,12 @@ function copyText(t, btn) {
       html += `<h2 style="font-size:24px;font-weight:700;margin-bottom:6px">STGT: choose a group</h2><p style="color:var(--text-muted);margin-bottom:20px">Selection Test for Graduate Teachers (STGT), Tripura. Practice MCQs with Answers and Explanations.</p><div class="class-grid">` +
         Object.keys(STGT.groups).map(id => {
           const g = STGT.groups[id];
-          return `<button class="class-tile ${g.soon ? 'stgt-soon' : ''}" ${g.soon ? 'disabled' : `onclick="pickStgtGrp('${id}')"`}><span class="ct-title">${g.name}</span><span class="ct-sub">${g.soon ? 'Coming soon' : g.subjects.map(s => s[1]).join(', ')}</span></button>`;
+          return `<button class="class-tile ${stgtSoon(id) ? 'stgt-soon' : ''}" ${stgtSoon(id) ? 'disabled' : `onclick="pickStgtGrp('${id}')"`}><span class="ct-title">${g.name}</span><span class="ct-sub">${stgtSoon(id) ? 'Coming soon' : g.subjects.map(s => s[1]).join(', ')}</span></button>`;
         }).join('') + '</div>';
     } else if (!browse.div) {
       const any = d => Object.keys(STGT_PDF).some(k => k.indexOf(browse.grp + '/') === 0 && ((k.split('/')[1] === 'combo') === (d === 'combo')));
       html += `<h2 style="font-size:24px;font-weight:700;margin-bottom:6px">${G.name}</h2><p style="color:var(--text-muted);margin-bottom:20px">Choose how you want to study.</p><div class="class-grid">` +
-        `<button class="class-tile" onclick="pickStgtDiv('combo')"><span class="ct-title">Combo Course</span><span class="ct-sub">${any('combo') ? 'All ' + G.subjects.length + ' subjects together. ' + STGT.comboLevels.join(', ') : 'Coming soon'}</span></button>` +
+        `<button class="class-tile" onclick="pickStgtDiv('combo')"><span class="ct-title">Combo Course</span><span class="ct-sub">${any('combo') ? (G.subjects.length > 1 ? 'All ' + G.subjects.length + ' subjects together. ' : 'All subjects together. ') + STGT.comboLevels.join(', ') : 'Coming soon'}</span></button>` +
         `<button class="class-tile" onclick="pickStgtDiv('subj')"><span class="ct-title">Subject Wise Course</span><span class="ct-sub">${any('subj') ? G.subjects.map(s => s[1]).join(', ') : 'Coming soon'}</span></button></div>`;
     } else {
       const combo = browse.div === 'combo', levels = combo ? STGT.comboLevels : STGT.subjLevels, fees = combo ? G.combo : G.subj;
@@ -3681,7 +3682,7 @@ function copyText(t, btn) {
       if (!combo) {
         html += '<div class="stgt-tabs">' + G.subjects.map(s => `<button class="stgt-tab ${s[0] === browse.sid ? 'on' : ''}" onclick="pickStgtSubj('${s[0]}')">${s[1]}</button>`).join('') + '</div>';
       }
-      html += `<h2 style="font-size:24px;font-weight:700;margin:16px 0 4px">${esc(combo ? nm : 'STGT ' + nm)}</h2><p style="color:var(--text-muted);font-size:13px">${combo ? 'All ' + G.subjects.map(s => s[1]).join(', ') + ' in one course.' : 'Selection Test for Graduate Teachers (STGT), Tripura.'}</p>`;
+      html += `<h2 style="font-size:24px;font-weight:700;margin:16px 0 4px">${esc(combo ? nm : 'STGT ' + nm)}</h2><p style="color:var(--text-muted);font-size:13px">${combo ? (G.subjects.length > 1 ? 'All ' + G.subjects.map(s => s[1]).join(', ') + ' in one course.' : 'All ' + G.name + ' subjects in one course.') : 'Selection Test for Graduate Teachers (STGT), Tripura.'}</p>`;
       html += '<div class="level-grid">' + levels.map((x, i) => {
         const info = STGT_PDF[key + '/' + i];
         return `<div class="level-card ${i === lv ? 'sel' : ''}" onclick="setStgtLevel(${i})"><div class="lv-name">${x} course</div><div class="lv-price">${inr(fees[i])}</div><div class="lv-pat">${(info && info.mcq) || mcqs[i]} most important MCQs with Answers &amp; Explanations</div>${info ? (info.pages ? `<div style="font-size:12px;margin-top:8px;color:var(--text-muted)">${info.pages} pages</div>` : '') : SOON_TAG}</div>`;
@@ -3703,6 +3704,145 @@ function copyText(t, btn) {
       return;
     }
     __browseBackStgt();
+  };
+</script>
+<style id="cbseCss">
+  .cb-chaps{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:12px}
+  .cb-card{border:1px solid var(--border,#e2e8f0);border-radius:12px;padding:16px;background:#fff;display:flex;flex-direction:column;gap:8px}
+  .cb-card .cb-no{font-size:11px;font-weight:700;color:var(--text-muted)}
+  .cb-card .cb-name{font-size:15px;font-weight:700;line-height:1.3}
+  .cb-chips{display:flex;flex-wrap:wrap;gap:6px}
+  .cb-chip{font-size:11px;background:#eef2ff;color:#3730a3;border-radius:999px;padding:3px 9px;font-weight:600}
+  .cb-chip.n{background:#ecfdf5;color:#047857}
+  .cb-foot{display:flex;align-items:center;gap:8px;margin-top:auto;flex-wrap:wrap}
+  .cb-price{font-weight:700;margin-right:auto}
+  .cb-sec{font-size:13px;font-weight:700;color:var(--text-muted);margin:22px 0 -4px}
+  .class-tile.cb-soon{opacity:.6;cursor:not-allowed}
+  .class-tile.cb-soon .ct-sub{color:var(--warning,#b45309);font-weight:700}
+</style>
+<script id="cbseJs">
+  // ── CBSE: class, then stream (XI and XII), then subject, then Whole Course or Chapter Wise ──
+  // Levels: Short, Medium, Full. Whole Course = every chapter at that level (fee is the whole-subject fee).
+  // Entitlement: { courseId, level, ch } as before ('all' for a whole course). File path: cbse/<courseId>/<level>/ch<n>.
+  const CHAPTERS = {
+    '12-phy': ['Electric Charges & Fields', 'Electrostatic Potential & Capacitance', 'Current Electricity', 'Moving Charges & Magnetism', 'Magnetism & Matter', 'Electromagnetic Induction', 'Alternating Current', 'Electromagnetic Waves', 'Ray Optics & Optical Instruments', 'Wave Optics', 'Dual Nature of Radiation & Matter', 'Atoms', 'Nuclei', 'Semiconductor Electronics: Materials, Devices & Simple Circuits'],
+    '12-chem': ['Solutions', 'Electrochemistry', 'Chemical Kinetics', 'The d- and f-Block Elements', 'Coordination Compounds', 'Haloalkanes and Haloarenes', 'Alcohols, Phenols and Ethers', 'Aldehydes, Ketones and Carboxylic Acids', 'Amines', 'Biomolecules', 'Polymers', 'Chemistry in Everyday Life'],
+    '12-bio': ['Sexual Reproduction in Flowering Plants', 'Human Reproduction', 'Reproductive Health', 'Principles of Inheritance and Variation', 'Molecular Basis of Inheritance', 'Evolution', 'Human Health and Disease', 'Microbes in Human Welfare', 'Biotechnology: Principles and Processes', 'Biotechnology and its Applications', 'Organisms and Populations', 'Ecosystem', 'Biodiversity and Conservation'],
+    '12-math': ['Relations & Functions', 'Inverse Trigonometric Functions', 'Matrices', 'Determinants', 'Continuity & Differentiability', 'Applications of Derivatives', 'Integrals', 'Applications of Integrals', 'Differential Equations', 'Vectors', 'Three Dimensional Geometry', 'Linear Programming Problem', 'Probability'],
+    '11-phy': ['Physical World', 'Units and Measurements', 'Motion in a Straight Line', 'Motion in a Plane', 'Laws of Motion', 'Work, Energy and Power', 'System of Particles and Rotational Motion', 'Gravitation', 'Mechanical Properties of Solids', 'Mechanical Properties of Fluids', 'Thermal Properties of Matter', 'Thermodynamics', 'Kinetic Theory', 'Oscillations', 'Waves'],
+    '11-chem': ['Some Basic Concepts of Chemistry', 'Structure of Atom', 'Classification of Elements and Periodicity in Properties', 'Chemical Bonding and Molecular Structure', 'Thermodynamics', 'Equilibrium', 'Redox Reactions', 'Organic Chemistry: Some Basic Principles and Techniques', 'Hydrocarbons'],
+    '11-bio': ['The Living World', 'Biological Classification', 'Plant Kingdom', 'Animal Kingdom', 'Morphology of Flowering Plants', 'Anatomy of Flowering Plants', 'Structural Organisation in Animals', 'Cell: The Unit of Life', 'Biomolecules', 'Cell Cycle and Cell Division', 'Transport in Plants', 'Mineral Nutrition', 'Photosynthesis in Higher Plants', 'Respiration in Plants', 'Plant Growth and Development', 'Digestion and Absorption', 'Breathing and Exchange of Gases', 'Body Fluids and Circulation', 'Excretory Products and their Elimination', 'Locomotion and Movement', 'Neural Control and Coordination', 'Chemical Coordination and Integration'],
+    '10-sci': ['Chemical Reactions and Equations', 'Acids, Bases and Salts', 'Metals and Non-metals', 'Carbon and its Compounds', 'Life Processes', 'Control and Coordination', 'How do Organisms Reproduce?', 'Heredity', 'Light: Reflection and Refraction', 'The Human Eye and the Colourful World', 'Electricity', 'Magnetic Effects of Electric Current', 'Our Environment'],
+    '9-sci': ['Exploration: Entering the World of Secondary Science', 'Cell: The Building Block of Life', 'Tissues in Action', 'Describing Motion Around Us', 'Exploring Mixtures and their Separation', 'How Forces Affect Motion', 'Work, Energy, and Simple Machines', 'Journey Inside the Atom', 'Atomic Foundations of Matter', 'Sound Waves: Characteristics and Applications', 'Reproduction: How Life Continues', 'Patterns in Life: Diversity and Classification', 'Earth as a System: Energy, Matter, and Life'],
+    '10-sst': ['The Rise of Nationalism in Europe', 'The Nationalist Movement in Indo-China', 'Nationalism in India', 'The Making of a Global World', 'The Age of Industrialisation', 'Work, Life and Leisure', 'Print Culture and the Modern World', 'Novels, Society and History',
+      'Power Sharing', 'Federalism', 'Democracy and Diversity', 'Gender, Religion and Caste', 'Popular Struggles and Movements', 'Political Parties', 'Outcomes of Democracy', 'Challenges to Democracy',
+      'Development', 'Sectors of the Indian Economy', 'Money and Credit', 'Globalisation and the Indian Economy', 'Consumer Rights',
+      'Resources and Development', 'Forest and Wildlife Resources', 'Water Resources', 'Agriculture', 'Minerals and Energy Resources', 'Manufacturing Industries', 'Lifelines of National Economy'],
+    '9-sst': ['The French Revolution', 'Socialism in Europe and the Russian Revolution', 'Nazism and the Rise of Hitler', 'Forest Society and Colonialism', 'Pastoralists in the Modern World', 'Peasants and Farmers', 'History and Sport: The Story of Cricket', 'Clothing: A Social History',
+      'Democracy in the Contemporary World', 'What is Democracy? Why Democracy?', 'Constitutional Design', 'Electoral Politics', 'Working of Institutions', 'Democratic Rights',
+      'The Story of Village Palampur', 'People as Resource', 'Poverty as a Challenge', 'Food Security in India',
+      'India: Size and Location', 'Physical Features of India', 'Drainage', 'Climate', 'Natural Vegetation and Wildlife', 'Population']
+  };
+  // Social Science chapters are grouped by subject. [heading, number of chapters]
+  const CB_SECTIONS = { '10-sst': [['History', 8], ['Political Science', 8], ['Economics', 5], ['Geography', 7]], '9-sst': [['History', 8], ['Political Science', 6], ['Economics', 4], ['Geography', 6]] };
+  // Question counts per chapter and level [MCQ, VSA, SA, case based, LA]. Add a chapter here when its counts are known.
+  const CB_COUNTS = { '12-phy': { 1: [[100, 100, 100, 75, 50], [200, 150, 100, 75, 50], [300, 150, 100, 75, 50]] } };
+  const CB_MARKS = { MCQ: '1 mark MCQ', VSA: '2 mark VSA', SA: '3 mark SA', CBQ: '4 mark case based', LA: '5 mark LA' };
+  function cbParts(id, ch, lvl, generic) {
+    const cn = !generic && CB_COUNTS[id] && CB_COUNTS[id][ch] && CB_COUNTS[id][ch][lvl];
+    if (cn) return ['MCQ', 'VSA', 'SA', 'CBQ', 'LA'].map((k, i) => CB_MARKS[k] + ': ' + cn[i]).concat(['Comprehensive notes']);
+    return patternFor(COURSES[id], lvl).split(' + ').map(t => {
+      t = t.trim();
+      const k = t.split(' ')[0], rest = t.slice(k.length).trim();
+      return k === 'Notes' ? 'Comprehensive notes' : CB_MARKS[k] + (rest ? ' (' + rest + ')' : '');
+    });
+  }
+  const CB_STREAMS = [['sci', 'Science'], ['arts', 'Arts'], ['com', 'Commerce']];
+  function cbHas(id, lvl) { return lvl == null ? hasKey(CBSE_PDF, id + '|') : !!CBSE_PDF[id + '|' + lvl]; }
+  function cbCoursesFor(cls) { return Object.keys(COURSES).filter(k => COURSES[k].cls === cls); }
+  function cbHasClass(cls) { return cbCoursesFor(cls).some(id => cbHas(id)); }
+  const CB_CLASSES = ['IX', 'X', 'XI', 'XII'];
+  function cbPickCls(k) { browse.cls = k; browse.stream = null; browse.courseId = null; browse.mode = null; browse.level = 0; renderBrowse(); window.scrollTo(0, 0); }
+  function cbPickStream(s) { if (s !== 'sci') return; browse.stream = s; browse.courseId = null; renderBrowse(); window.scrollTo(0, 0); }
+  function cbPickSubj(id) { browse.courseId = id; browse.mode = null; browse.level = 0; renderBrowse(); window.scrollTo(0, 0); }
+  function cbPickMode(m) { browse.mode = m; browse.level = 0; renderBrowse(); window.scrollTo(0, 0); }
+  function cbSetLevel(i) { browse.level = i; renderBrowse(); }
+  function cbOpenWhole() { browse.mode = 'chap'; renderBrowse(); }
+  function renderCbse() {
+    const el = document.getElementById('browseBody');
+    const c = browse.courseId ? COURSES[browse.courseId] : null;
+    const crumbs = ['CBSE'];
+    if (browse.cls) crumbs.push('Class ' + browse.cls);
+    if (browse.stream) crumbs.push('Science');
+    if (c) crumbs.push(c.name);
+    if (c && browse.mode) crumbs.push(browse.mode === 'whole' ? 'Whole Course' : 'Chapter Wise');
+    let html = `<div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap"><button class="btn btn-secondary btn-sm" onclick="browseBack()">← Back</button><strong style="font-size:15px">${esc(crumbs.join(' / '))}</strong></div>`;
+    const tile = (onclick, title, sub, soon) => `<button class="class-tile ${soon ? 'cb-soon' : ''}" ${soon ? 'disabled' : `onclick="${onclick}"`}><span class="ct-title">${title}</span><span class="ct-sub">${soon ? 'Coming soon' : sub}</span></button>`;
+    if (!browse.cls) {
+      html += `<h2 style="font-size:24px;font-weight:700;margin-bottom:6px">CBSE: choose your class</h2><p style="color:var(--text-muted);margin-bottom:20px">NCERT syllabus based. Mark-wise questions and comprehensive notes for every chapter.</p><div class="class-grid">` +
+        CB_CLASSES.map(k => tile(`cbPickCls('${k}')`, 'Class ' + k, k === 'XI' || k === 'XII' ? 'Science, Arts, Commerce' : [...new Set(cbCoursesFor(k).map(id => COURSES[id].name))].join(', '), !cbHasClass(k))).join('') + '</div>';
+    } else if ((browse.cls === 'XI' || browse.cls === 'XII') && !browse.stream) {
+      html += `<h2 style="font-size:24px;font-weight:700;margin-bottom:6px">Class ${browse.cls}: choose a stream</h2><div class="class-grid" style="margin-top:20px">` +
+        CB_STREAMS.map(s => tile(`cbPickStream('${s[0]}')`, s[1], s[0] === 'sci' ? cbCoursesFor(browse.cls).map(id => COURSES[id].name).join(', ') : '', s[0] !== 'sci' || !cbHasClass(browse.cls))).join('') + '</div>';
+    } else if (!c) {
+      html += `<h2 style="font-size:24px;font-weight:700;margin-bottom:6px">Class ${browse.cls}: choose a subject</h2><div class="class-grid" style="margin-top:20px">` +
+        cbCoursesFor(browse.cls).map(id => tile(`cbPickSubj('${id}')`, COURSES[id].name, COURSES[id].n + ' chapters', !cbHas(id))).join('') + '</div>';
+    } else if (!browse.mode) {
+      const id = browse.courseId;
+      html += `<h2 style="font-size:24px;font-weight:700;margin-bottom:6px">${esc(classTitle(c))}</h2><p style="color:var(--text-muted);margin-bottom:20px">${c.n} chapters. Short, Medium and Full courses.</p><div class="class-grid">` +
+        tile("cbPickMode('whole')", 'Whole Course', 'All ' + c.n + ' chapters together. Short, Medium, Full', !CB_LEVELS.some(i => CBSE_PDF[id + '|' + i] === 'all')) +
+        tile("cbPickMode('chap')", 'Chapter Wise', 'Buy one chapter at a time. Short, Medium, Full', !cbHas(id)) + '</div>';
+    } else {
+      const id = browse.courseId, lv = browse.level, whole = browse.mode === 'whole';
+      html += `<h2 style="font-size:24px;font-weight:700;margin-bottom:4px">${esc(classTitle(c))}: ${whole ? 'Whole Course' : 'Chapter Wise'}</h2><p style="color:var(--text-muted);font-size:13px">${whole ? 'Every chapter at the level you choose. Short is all chapter-wise Short courses together, and so on.' : 'Choose a level, then pick the chapters you want.'}</p>`;
+      html += '<div class="level-grid">' + CB_LEVELS.map(i => {
+        const have = whole ? CBSE_PDF[id + '|' + i] === 'all' : cbHas(id, i);
+        const part = CBSE_PDF[id + '|' + i], cnt = part === 'all' ? c.n : (part ? part.length : 0);
+        const note = whole ? (have ? '' : SOON_TAG) : (have ? `<div style="font-size:12px;margin-top:8px;color:var(--text-muted)">${cnt} of ${c.n} chapters available</div>` : SOON_TAG);
+        const price = whole ? c.whole[i] : c.per[i];
+        return `<div class="level-card ${i === lv ? 'sel' : ''}" onclick="cbSetLevel(${i})"><div class="lv-name">${LEVELS[i]} course</div><div class="lv-price">${inr(price)} <small style="font-size:12px;font-weight:500;color:var(--text-muted)">${whole ? 'whole course' : 'per chapter'}</small></div><div class="lv-pat">${cbParts(id, 1, i, true).join(' + ')}</div>${note}</div>`;
+      }).join('') + '</div>';
+      if (whole) {
+        const save = c.per[lv] * c.n - c.whole[lv], own = entOwned({ courseId: id, level: lv, ch: 'all' }), have = CBSE_PDF[id + '|' + lv] === 'all';
+        html += `<div class="whole-box"><div style="flex:1;min-width:200px"><div style="font-weight:700">Whole ${LEVELS[lv]} course: ${inr(c.whole[lv])}</div><div style="font-size:12px;color:var(--text-muted)">All ${c.n} chapters${save > 0 ? '. Saves ' + inr(save) + ' compared with buying chapters one by one.' : ''}</div></div>` +
+          (own ? `<span class="badge badge-green">Purchased</span><button class="btn btn-secondary btn-sm" onclick="cbOpenWhole()">Open chapters</button>` : !have ? SOON : `<button class="btn btn-secondary btn-sm" onclick="addWhole()">Add to Cart</button><button class="btn btn-primary btn-sm" onclick="buyWhole()">Buy Now</button>`) + '</div>';
+        html += `<div class="cb-sec">What each chapter holds at ${LEVELS[lv]} level</div><div class="cb-chips" style="margin-top:12px">${cbParts(id, 1, lv, true).map(p => `<span class="cb-chip ${/notes/.test(p) ? 'n' : ''}">${p}</span>`).join('')}</div>`;
+      } else {
+        const secs = CB_SECTIONS[id] || [];
+        let si = 0, acc = 0;
+        html += '<div class="cb-chaps">';
+        for (let ch = 1; ch <= c.n; ch++) {
+          if (secs.length && (ch === 1 || ch === acc + 1)) {
+            const s = secs[si++]; acc += s[1];
+            html += `</div><div class="cb-sec">${esc(s[0])}</div><div class="cb-chaps">`;
+          }
+          const own = entOwned({ courseId: id, level: lv, ch: ch }), have = cbseAvail(id, lv, ch);
+          html += `<div class="cb-card"><div class="cb-no">Chapter ${ch}</div><div class="cb-name">${esc(CHAPTERS[id][ch - 1])}</div><div class="cb-chips">${cbParts(id, ch, lv).map(p => `<span class="cb-chip ${/notes/.test(p) ? 'n' : ''}">${p}</span>`).join('')}</div>` +
+            `<div class="cb-foot"><span class="cb-price">${inr(c.per[lv])}</span>` +
+            (own && !have ? SOON : own ? `<span class="badge badge-green">Purchased</span><button class="btn btn-secondary btn-sm" onclick="openChapter('${id}',${lv},${ch})">Open</button>` : !have ? SOON : `<button class="btn btn-secondary btn-sm" onclick="addChapter(${ch})">Add to Cart</button><button class="btn btn-primary btn-sm" onclick="buyChapter(${ch})">Buy Now</button>`) + '</div></div>';
+        }
+        html += '</div>';
+      }
+    }
+    el.innerHTML = html;
+  }
+  const CB_LEVELS = [0, 1, 2];
+  // Demo only: sample uploads so every state can be seen. The live site replaces these from the materials table.
+  Object.assign(CBSE_PDF, { '12-phy|0': 'all', '12-phy|1': [1, 2, 3, 4], '12-phy|2': [1, 2], '10-sci|0': [1, 2, 3] });
+  const __renderBrowseCbse = renderBrowse;
+  renderBrowse = function () { if (browse.cat === 'cbse') { renderCbse(); return; } __renderBrowseCbse(); };
+  const __browseBackCbse = browseBack;
+  browseBack = function () {
+    if (browse.cat === 'cbse') {
+      if (browse.mode) browse.mode = null;
+      else if (browse.courseId) browse.courseId = null;
+      else if (browse.stream) browse.stream = null;
+      else if (browse.cls) browse.cls = null;
+      else { showScreen('home'); return; }
+      renderBrowse();
+      return;
+    }
+    __browseBackCbse();
   };
 </script>
 <script id="kidsJs">
